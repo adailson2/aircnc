@@ -11,7 +11,6 @@ function SpotList({ tech, navigation }) {
       const response = await api.get('/spots', {
         params: { tech }
       })
-
       setSpots(response.data);
     }
 
@@ -23,6 +22,7 @@ function SpotList({ tech, navigation }) {
   }
   
   return (
+    
     <View style={styles.container}>
       <Text style={styles.title}>Empresas que usam <Text style={styles.bold}> {tech} </Text></Text>
 
