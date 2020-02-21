@@ -12,16 +12,14 @@ const app = express();
 const server = http.Server(app);
 const io = socketio(server);
 
+const connectedUsers = {};
+
 const config = require('./config/config');
 
 io.on('connection', socket => {
-  console.log('Usuário conectado', socket.id);
+  const { user_id } = socket.handshake.query;
 
-  
-  socket.on('omni', data => {
-    console.log(data);
-  })
-
+  connectedUsers[user_id] = socket.id;
 });
 
 mongoose.connect(config.uri, {
