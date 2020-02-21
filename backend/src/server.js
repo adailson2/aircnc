@@ -12,9 +12,15 @@ const app = express();
 const server = http.Server(app);
 const io = socketio(server);
 
-const connectedUsers = {};
 
 const config = require('./config/config');
+
+mongoose.connect(config.uri, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true
+});
+
+const connectedUsers = {};
 
 io.on('connection', socket => {
   const { user_id } = socket.handshake.query;
@@ -22,10 +28,12 @@ io.on('connection', socket => {
   connectedUsers[user_id] = socket.id;
 });
 
-mongoose.connect(config.uri, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true
-});
+app.use((req, res, next) => {
+  req.io = io;
+  req.connectedUsers = connectedUsers;
+
+  return next();
+})
 
 // req.query - Acessar query params (para filtros)
 // req.params - Acessar route params (para edição, delete)
