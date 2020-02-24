@@ -38,7 +38,7 @@ export default function Book({ navigation }) {
           onChangeText={setDate}
         />
       <TouchableOpacity onPress={handleSubmit} style={styles.button}>
-        <Text style={styles.buttonText}>Solicitar spots</Text>
+        <Text style={styles.buttonText}>Reservar spot</Text>
       </TouchableOpacity>
 
       <TouchableOpacity onPress={handleCancel} style={[styles.button, styles.cancelButton]}>
